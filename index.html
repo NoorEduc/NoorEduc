@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noor Educ - Plateforme de Bien-être Enseignant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2D5A7B;
+            --secondary: #E84C3D;
+            --accent: #F4A261;
+            --light-bg: #F8FAFC;
+            --dark-bg: #1A1F3A;
+            --text-dark: #1A1F3A;
+            --text-light: #FFFFFF;
+            --border: #E2E8F0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            background: var(--light-bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1F3D5A 100%);
+            color: var(--text-light);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            background: linear-gradient(120deg, var(--accent), #FF6B6B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero */
+        .hero {
+            margin-top: 70px;
+            background: linear-gradient(135deg, var(--primary) 0%, #1F3D5A 50%, var(--dark-bg) 100%);
+            color: var(--text-light);
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(244, 162, 97, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(232, 76, 61, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), #FF6B6B);
+            color: var(--text-light);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 10px 30px rgba(232, 76, 61, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(232, 76, 61, 0.4);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Solutions Section */
+        .section {
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .solution-card {
+            background: var(--text-light);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solution-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(244, 162, 97, 0.1), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            border-left-color: var(--secondary);
+        }
+
+        .solution-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            position: relative;
+            z-index: 1;
+        }
+
+        .solution-card p {
+            color: #555;
+            position: relative;
+            z-index: 1;
+            line-height: 1.7;
+        }
+
+        /* Canvas Section */
+        .canvas-section {
+            background: var(--text-light);
+            padding: 5rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .canvas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .canvas-block {
+            background: linear-gradient(135deg, #F8FAFC 0%, #EEF4FA 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .canvas-block::before {
+            content: attr(data-number);
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            font-size: 150px;
+            font-weight: 900;
+            opacity: 0.05;
+            font-family: 'Arial Black', sans-serif;
+        }
+
+        .canvas-block:nth-child(1) { border-top-color: var(--accent); border-top-width: 4px; }
+        .canvas-block:nth-child(2) { border-top-color: #4ECDC4; border-top-width: 4px; }
+        .canvas-block:nth-child(3) { border-top-color: #FF6B6B; border-top-width: 4px; }
+        .canvas-block:nth-child(4) { border-top-color: #95E1D3; border-top-width: 4px; }
+        .canvas-block:nth-child(5) { border-top-color: #FFD93D; border-top-width: 4px; }
+        .canvas-block:nth-child(6) { border-top-color: #A8DADC; border-top-width: 4px; }
+        .canvas-block:nth-child(7) { border-top-color: #F1FAEE; border-top-width: 4px; }
+        .canvas-block:nth-child(8) { border-top-color: #E63946; border-top-width: 4px; }
+        .canvas-block:nth-child(9) { border-top-color: #457B9D; border-top-width: 4px; }
+
+        .canvas-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .canvas-block h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            color: var(--primary);
+            position: relative;
+            z-index: 1;
+        }
+
+        .canvas-block ul {
+            list-style: none;
+            position: relative;
+            z-index: 1;
+        }
+
+        .canvas-block li {
+            color: #555;
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .canvas-block li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        /* Interactive Canvas Visualization */
+        .canvas-visual {
+            margin: 4rem 0;
+            position: relative;
+            background: linear-gradient(135deg, #FFF8F6 0%, #F8FAFC 100%);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 2px solid var(--border);
+        }
+
+        .canvas-visual h3 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .canvas-diagram {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            grid-template-areas: 
+                "partners resources value"
+                "activities resources segments"
+                "costs channels relations"
+                "costs revenue revenue";
+            margin-top: 2rem;
+        }
+
+        .canvas-item {
+            background: var(--text-light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 2px solid var(--border);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .canvas-item:hover {
+            border-color: var(--accent);
+            box-shadow: 0 8px 25px rgba(244, 162, 97, 0.2);
+        }
+
+        .canvas-item h5 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .canvas-item p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        #partners { grid-area: partners; }
+        #activities { grid-area: activities; }
+        #resources { grid-area: resources; }
+        #costs { grid-area: costs; }
+        #channels { grid-area: channels; }
+        #value { grid-area: value; }
+        #segments { grid-area: segments; }
+        #relations { grid-area: relations; }
+        #revenue { grid-area: revenue; }
+
+        /* Features Section */
+        .features-section {
+            background: var(--light-bg);
+            padding: 5rem 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--accent), #FF6B6B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feature-item h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .feature-item p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary), #1F3D5A);
+            color: var(--text-light);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--accent), #FF6B6B);
+            color: var(--text-light);
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button-secondary {
+            background: var(--text-light);
+            color: var(--secondary);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .cta-button-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            color: var(--text-light);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .canvas-diagram {
+                grid-template-columns: 1fr;
+                grid-template-areas: 
+                    "partners"
+                    "resources"
+                    "value"
+                    "activities"
+                    "segments"
+                    "channels"
+                    "relations"
+                    "costs"
+                    "revenue";
+            }
+
+            .canvas-block {
+                margin-bottom: 1rem;
+            }
+
+            .solutions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .fade-in.visible {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">Noor Educ</div>
+            <ul>
+                <li><a href="#solutions">Solutions</a></li>
+                <li><a href="#features">Caractéristiques</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Bien-être Enseignant<br>Plateforme Révolutionnaire</h1>
+            <p>Le premier programme marocain 100% centré sur le bien-être et l'épanouissement des enseignants</p>
+            <button class="cta-button">Commencer Maintenant</button>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section class="section" id="solutions">
+        <div class="container">
+            <h2 class="section-title">Notre Solution</h2>
+            <p class="section-subtitle">Ce que nous proposons pour transformer le bien-être enseignant</p>
+            
+            <div class="solutions-grid">
+                <div class="solution-card fade-in">
+                    <h3>🎯 Coaching Personnalisé</h3>
+                    <p>Sessions individuelles et collectives adaptées à vos besoins spécifiques. Accompagnement expert pour surmonter les défis du métier.</p>
+                </div>
+                <div class="solution-card fade-in">
+                    <h3>💡 Développement des Soft Skills</h3>
+                    <p>Gestion du stress, intelligence émotionnelle, leadership. Compétences essentielles pour un bien-être professionnel durable.</p>
+                </div>
+            </div>
+
+            <div class="solutions-grid">
+                <div class="solution-card fade-in">
+                    <h3>🌍 Accessibilité Totale</h3>
+                    <p>Tous niveaux d'enseignement au Maroc. Du primaire au lycée, nous avons une solution pour chaque enseignant.</p>
+                </div>
+                <div class="solution-card fade-in">
+                    <h3>🔗 Approche Hybride</h3>
+                    <p>Combinaison optimale de sessions en présentiel et plateformes numériques pour une flexibilité maximale.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <h2 class="section-title">Pourquoi Nous Choisir ?</h2>
+            <p class="section-subtitle">Notre plateforme offre une approche complète et innovante</p>
+
+            <div class="features-grid">
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">🎓</div>
+                    <h4>Expertise Reconnue</h4>
+                    <p>Coachs certifiés et expérimentés dans le domaine éducatif</p>
+                </div>
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">📱</div>
+                    <h4>Technologie Avancée</h4>
+                    <p>Plateforme intuitive et user-friendly accessible 24/7</p>
+                </div>
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">🌟</div>
+                    <h4>Résultats Prouvés</h4>
+                    <p>Impact mesurable et scientifiquement validé</p>
+                </div>
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">🤝</div>
+                    <h4>Communauté Active</h4>
+                    <p>Connectez-vous avec d'autres enseignants du Maroc</p>
+                </div>
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">💡</div>
+                    <h4>Ressources Riches</h4>
+                    <p>Contenus pédagogiques variés et actualisés régulièrement</p>
+                </div>
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">🎯</div>
+                    <h4>Personnalisation</h4>
+                    <p>Parcours adapté à vos objectifs spécifiques</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <h2 class="section-title" style="color: var(--text-light);">Notre Impact</h2>
+            <div class="stats-grid">
+                <div class="stat">
+                    <div class="stat-number">150+</div>
+                    <div class="stat-label">Enseignants Accompagnés</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Taux de Satisfaction</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Régions Couvertes</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <h2>Prêt à Transformer Votre Bien-être ?</h2>
+            <p>Rejoignez une communauté d'enseignants qui changent leur vie professionnelle</p>
+            <button class="cta-button-secondary">S'Inscrire Maintenant</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Noor Educ – Bien-être des enseignants | Maroc</p>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer pour les animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll pour les liens
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animation des canvas items au scroll
+        const canvasItems = document.querySelectorAll('.canvas-item');
+        canvasItems.forEach((item, index) => {
+            item.style.animationDelay = `${index * 0.1}s`;
+            item.style.animation = 'fadeInUp 0.6s ease-out forwards';
+            item.style.opacity = '0';
+        });
+
+        // Interactive canvas hover effect
+        document.querySelectorAll('.canvas-block').forEach(block => {
+            block.addEventListener('mouseenter', function() {
+                this.style.backgroundColor = 'rgba(244, 162, 97, 0.1)';
+            });
+            block.addEventListener('mouseleave', function() {
+                this.style.backgroundColor = '';
+            });
+        });
+
+        // CTA Buttons functionality
+        document.querySelectorAll('.cta-button, .cta-button-secondary').forEach(button => {
+            button.addEventListener('click', function() {
+                alert('Bienvenue! Cette fonctionnalité serait connectée à votre système d\'inscription.\nMerci de votre intérêt pour EnseignantBien! 🎓');
+            });
+        });
+
+        // Parallax effect simple
+        window.addEventListener('scroll', () => {
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                const scrollPosition = window.pageYOffset;
+                hero.style.backgroundPosition = `center ${scrollPosition * 0.5}px`;
+            }
+        });
+    </script>
+</body>
+</html>
